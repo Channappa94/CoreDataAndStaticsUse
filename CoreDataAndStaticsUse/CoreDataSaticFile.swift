@@ -54,6 +54,7 @@ class CorDataBase{
             let fetchtedResult = try managedContext.fetch(fetch) as! [NSManagedObject]
             for index in fetchtedResult{
                 managedContext.delete(index)
+                try managedContext.save()
             }
         }catch{
         }
