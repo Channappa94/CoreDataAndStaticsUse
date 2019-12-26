@@ -40,7 +40,6 @@ class CorDataBase{
                 fetchingData.append(placeAndNumber)
             }
         }catch{
-            
         }
         return fetchingData
     }
@@ -55,26 +54,27 @@ class CorDataBase{
             let fetchtedResult = try managedContext.fetch(fetch) as! [NSManagedObject]
             for index in fetchtedResult{
                 managedContext.delete(index)
+                try managedContext.save()
             }
         }catch{
         }
     }
     
-//    static func update(_ nameAndNumber: CoreDataModel){
-//        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
-//        let managedContext = appDelegate.persistentContainer.viewContext
-//        let fetch = NSFetchRequest<NSManagedObject>(entityName: "Names")
-//        fetch.predicate = NSPredicate(format: "(name = %@", nameAndNumber.name as CVarArg)
-//        do{
-//           let object = try managedContext.fetch(fetch)
-//            if object.count == 1{
-//                let objectUpdate = object.first as! NSManagedObject
-//                objectUpdate.setValue(nameAndNumber.name, forKey: "name")
-//            }
-//        }catch{
-//
-//        }
-//    }
-//
+    static func update(_ nameAndNumber: CoreDataModel){
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetch = NSFetchRequest<NSManagedObject>(entityName: "Names")
+        fetch.predicate = NSPredicate(format: "(name = %@", nameAndNumber.name as CVarArg)
+        do{
+           let object = try managedContext.fetch(fetch)
+            if object.count == 1{
+                let objectUpdate = object.first as! NSManagedObject
+                objectUpdate.setValue(nameAndNumber.name, forKey: "name")
+            }
+        }catch{
+
+        }
+    }
+
     
 }
